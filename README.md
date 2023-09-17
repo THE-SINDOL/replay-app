@@ -5,6 +5,9 @@
 <p align="center">
   <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" alt="Version">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
+  <a href="https://discord.gg/A5rgNwDRd4">
+    <img src="https://img.shields.io/badge/Join%20Our-Discord-7289da.svg" alt="Discord Chat">
+  </a>
 </p>
 
 ## Description
