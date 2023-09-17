@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="enabledOnReformat" value="true" />
+    <option name="enabledOnSave" value="true" />
+    <option name="executionMode" value="BINARY" />
+    <option name="pathToExecutable" value="/opt/homebrew/Caskroom/miniconda/base/envs/rvc310/bin/black" />
+    <option name="sdkUUID" value="abb4ba33-ef75-4240-92a5-af95e748afcd" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="rvc310" project-jdk-type="Python SDK" />
+  <component name="PythonCompatibilityInspectionAdvertiser">
+    <option name="version" value="3" />
+  </component>
+</project>

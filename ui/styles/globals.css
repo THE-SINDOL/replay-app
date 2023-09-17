@@ -1,0 +1,404 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  width: 100%;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+body > div:first-child {
+  height: 100%;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+body::-webkit-scrollbar-track {
+  display: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+div {
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  color-scheme: dark;
+}
+.sbui-btn-primary {
+  background-color: #148aff !important;
+}
+
+.sbui-typography-link {
+  color: #148aff !important;
+}
+
+.sbui-typography-text {
+  color: white !important;
+}
+.sbui-formlayout__label {
+  color: white !important;
+}
+.sbui-checkbox__label-container > * {
+  color: white !important;
+}
+
+/* From imessage-exporter */
+.message {
+  display: flex;
+  align-items: flex-end;
+  overflow-wrap: break-word;
+  font-size: 15px;
+}
+
+.imessage {
+  background-color: #1982fc;
+}
+
+.sms {
+  background-color: #65c466;
+}
+
+.message .container {
+  margin-right: auto;
+  margin-left: 0;
+  max-width: 60%;
+  width: fit-content;
+}
+.message .sentContainer {
+  margin-left: auto;
+  margin-right: 0;
+  max-width: 60%;
+  width: fit-content;
+}
+
+.message .sent {
+  padding: 7px 12px;
+  color: white;
+  width: fit-content;
+  border-radius: 25px;
+}
+
+.message .received {
+  padding: 7px 12px;
+  background-color: #3b3b3d;
+  color: white;
+  border-radius: 25px;
+  width: fit-content;
+}
+
+.message .sent .replies .reply .message .sent {
+  border-style: solid;
+  border-color: white;
+  border-width: thin;
+}
+
+.message .received .replies .reply .message .received {
+  border-style: solid;
+  border-color: darkgray;
+  border-width: thin;
+}
+
+.message .received .replies {
+  border-left: dotted dimgray;
+  border-bottom: dotted dimgray;
+  border-bottom-left-radius: 25px;
+}
+
+.message .sent .replies {
+  border-left: dotted white;
+  border-bottom: dotted white;
+  border-bottom-left-radius: 25px;
+}
+
+.received .replies {
+  margin-top: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.sent .replies {
+  margin-top: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.reply .received {
+  max-width: 85%;
+  padding: 15px;
+}
+
+.reply .sent {
+  max-width: 85%;
+  padding: 15px;
+}
+
+.app {
+  background: white;
+  border-radius: 25px;
+}
+
+.app a {
+  text-decoration: none;
+}
+
+.app_header {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  color: black;
+}
+
+.app_header img {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.app_header audio {
+  padding-bottom: 2%;
+}
+
+.app_header .image_title {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: auto;
+}
+
+.app_header .image_subtitle {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: auto;
+}
+
+.app_header .ldtext {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: auto;
+}
+
+.app_header .name {
+  color: black;
+  font-weight: 600;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: auto;
+}
+
+.app_footer {
+  display: grid;
+  grid-template-areas:
+    "caption trailing_caption"
+    "subcaption trailing_subcaption";
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+
+  border-bottom-style: solid;
+  border-bottom-color: darkgray;
+
+  border-left-style: solid;
+  border-left-color: darkgray;
+
+  border-right-style: solid;
+  border-right-color: darkgray;
+
+  border-width: thin;
+  color: black;
+  background: lightgray;
+  padding-bottom: 1%;
+}
+
+.app_footer .caption {
+  grid-area: caption;
+  margin-top: 1%;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: auto;
+}
+
+.app_footer .subcaption {
+  grid-area: subcaption;
+  margin-top: 1%;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: auto;
+}
+
+.app_footer .trailing_caption {
+  grid-area: trailing_caption;
+  text-align: right;
+  margin-top: 1%;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: auto;
+}
+
+.app_footer .trailing_subcaption {
+  grid-area: trailing_subcaption;
+  text-align: right;
+  margin-top: 1%;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: auto;
+}
+
+.timestamp {
+  opacity: 60%;
+}
+
+.sender {
+  opacity: 100%;
+}
+
+.subject {
+  font-weight: 600;
+}
+
+.bubble {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.reply_context {
+  opacity: 60%;
+}
+
+.expressive {
+  opacity: 60%;
+}
+
+.reactions {
+  opacity: 60%;
+}
+
+div.reactions img {
+  max-width: 5em;
+}
+
+div.reaction {
+  display: flex;
+  align-items: center;
+}
+
+.announcement {
+  text-align: center;
+  padding: 8px;
+  word-wrap: break-word;
+  font-size: 15px;
+}
+
+.time-dif {
+  text-align: center;
+  padding: 14px 8px 8px;
+  color: #9a9a9a;
+  word-wrap: break-word;
+  font-size: 11px;
+}
+
+.sent table {
+  color: white;
+}
+
+.received table {
+  color: black;
+}
+
+.received .sent table {
+  color: white;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead {
+  border-bottom: 2px solid white;
+}
+
+td {
+  padding: 2px 5px;
+}
+
+.sent tbody {
+  color: rgba(256, 256, 256, 0.7);
+}
+
+.received .sent tbody {
+  color: rgba(256, 256, 256, 0.7);
+}
+
+.received tbody {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.received .announcement {
+  color: black;
+}
+
+.sent .announcement {
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  .announcement {
+    color: lightgray;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: transparent;
+  }
+}
+
+.draggable {
+  -webkit-app-region: drag;
+}
+.draggable > * {
+  -webkit-app-region: no-drag;
+}
+
+.media-attachment {
+  border-radius: 20px;
+}
+
+mark {
+  background-color: #5871f5ab;
+  color: white;
+}
+
+.rdp {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: #5871f5ab;
+  --rdp-background-color: #e7edff;
+  /* Switch to dark colors for dark themes */
+  --rdp-accent-color-dark: #3003e1;
+  --rdp-background-color-dark: #5871f5ab;
+  /* Outline border for focused elements */
+  --rdp-outline: 2px solid var(--rdp-accent-color);
+  /* Outline border for focused and selected elements */
+  --rdp-outline-selected: 2px solid rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

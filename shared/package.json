@@ -1,0 +1,17 @@
+{
+  "name": "@replay/shared",
+  "version": "1.0.0",
+  "description": "shared packages",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --max-warnings 0 --ext .js,ts,tsx .",
+    "test": "exit 0",
+    "typecheck": "tsc --noEmit",
+    "generate:client": "./generate-client.sh"
+  },
+  "devDependencies": {
+    "lodash-es": "^4.17.21",
+    "axios": "^1.5.0",
+    "openapi-client-axios": "^7.3.3"
+  }
+}

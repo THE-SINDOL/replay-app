@@ -1,0 +1,4 @@
+# Description: This file defines the owners of the code in this repository.
+# See https://help.github.com/articles/about-codeowners/ for more information.
+# Default ownesr required to review when someone opens a pull request.
+*       @jonluca @RivMist

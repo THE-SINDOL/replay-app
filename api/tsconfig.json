@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["**/*.ts", "*.mts", "../ui/types/*.d.ts"],
+  "compilerOptions": {
+    "lib": ["ESNext", "dom"],
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "incremental": true
+  }
+}

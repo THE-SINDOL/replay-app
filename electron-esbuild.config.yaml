@@ -1,0 +1,13 @@
+mainConfig:
+  type: esbuild
+  path: electron/esbuild.main.config.ts
+  src: electron/index.ts
+  output:
+    dir: electron/build/electron
+    filename: index.js
+rendererConfig:
+  type: vite
+  path: ui/vite.config.ts
+  src: ui/index.tsx
+  output:
+    dir: ui/out

@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.414.0",
+    "glob": "^10.3.4",
+    "log-timestamp": "^0.3.0",
+    "zip-a-folder": "^2.0.2"
+  }
+}

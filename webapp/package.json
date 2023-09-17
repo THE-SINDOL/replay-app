@@ -1,0 +1,43 @@
+{
+  "name": "@replay/webapp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.414.0",
+    "@aws-sdk/s3-request-presigner": "^3.414.0",
+    "@tanstack/react-query": "^4.35.3",
+    "@trpc/client": "^10.38.3",
+    "@trpc/next": "^10.38.3",
+    "@trpc/react-query": "^10.38.3",
+    "@trpc/server": "^10.38.3",
+    "@types/gtag.js": "^0.0.13",
+    "@types/react": "^18.2.21",
+    "@vercel/kv": "^0.2.2",
+    "@vercel/og": "^0.5.13",
+    "autoprefixer": "^10.4.15",
+    "eslint": "^8.49.0",
+    "js-yaml": "^4.1.0",
+    "next": "13.4.19",
+    "postcss": "^8.4.29",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "superjson": "^1.13.1",
+    "tailwindcss": "^3.3.3",
+    "typescript": "5.2.2",
+    "wavesurfer.js": "^7.3.2",
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "eslint": "^8.49.0",
+    "eslint-plugin-react": "^7.33.2"
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "private": true,
+  "name": "@replay/main",
+  "main": "electron/build/electron/index.js",
+  "version": "0.0.0-development",
+  "productName": "Replay",
+  "author": "Replay",
+  "description": "UI for generating songs with AI singers",
+  "repository": "https://github.com/tryreplay/replay-app",
+  "scripts": {
+    "check-signature": "spctl --assess -vvvv dist/mac/Replay.app; spctl --assess -vvvv dist/mac-arm64/Replay.app; codesign -vvv --deep --strict dist/mac/Replay.app; codesign -vvv --deep --strict dist/mac-arm64/Replay.app",
+    "package": "yarn build:notarize && cross-env NODE_ENV=production APP_ENV=production ELECTRON=true REPLAY_PORT=62362 electron-builder build",
+    "build:notarize": "node scripts/build-notarize.js",
+    "update:config": "node scripts/update-r2-config.js",
+    "update-version": "node scripts/update-version.js && yarn prettier -w package.json",
+    "wait-for-server": "node scripts/wait-for-server.js",
+    "update:zips": "node scripts/cleanup-r2-zips.js",
+    "classify-hugging-face": "ts-node-esm scripts/classify-huggingface-data.mts",
+    "parse-discord": "ts-node-esm scripts/parse-discord-responses.mts",
+    "electron:esbuild": "ts-node-esm --transpileOnly electron/electron-esbuild/index.mts",
+    "build:electron": "cross-env NODE_ENV=production APP_ENV=production ELECTRON=true REPLAY_PORT=62362 yarn electron:esbuild build",
+    "build": "yarn build:electron",
+    "fastbuild": "yarn build:notarize && electron-builder build --dir -c.mac.identity=null",
+    "devbuild": "yarn build:notarize && electron-builder build -m zip -c.mac.identity=null",
+    "typecheck": "yarn workspaces run typecheck",
+    "lint": "yarn workspaces run lint",
+    "start:app": "cross-env ELECTRON=true yarn electron:esbuild dev",
+    "dev": "yarn start:app",
+    "dev:debug": "cross-env DEBUG_LOGGING=true yarn start:app",
+    "dev:electron": "yarn dev",
+    "clean": "rimraf dist electron/build ui/out",
+    "dev:web": "yarn workspace @replay/electron dev",
+    "generate:client": "scripts/generate-api-types.sh && yarn prettier -w shared/*",
+    "dev:webapp": "yarn workspace @replay/webapp dev",
+    "build:webapp": "yarn workspace @replay/webapp build",
+    "start:webapp": "yarn workspace @replay/webapp start"
+  },
+  "workspaces": [
+    "api",
+    "ui",
+    "webapp",
+    "shared",
+    "electron"
+  ],
+  "devDependencies": {
+    "@sentry/esbuild-plugin": "^2.7.1",
+    "@types/eslint": "8.44.2",
+    "@types/fluent-ffmpeg": "^2.1.22",
+    "@types/node": "^20.6.2",
+    "@types/prettier": "^2.7.3",
+    "@types/promise-retry": "^1.1.3",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "18.2.7",
+    "@types/uuid": "^9.0.4",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "arg": "^5.0.2",
+    "axios": "^1.5.0",
+    "cmd-ts": "^0.13.0",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.19.3",
+    "eslint": "8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "get-urls": "^12.1.0",
+    "husky": "^8.0.3",
+    "jsonrepair": "^3.2.0",
+    "less": "^4.2.0",
+    "lint-staged": "^14.0.1",
+    "openai": "^4.7.1",
+    "p-map": "^6.0.0",
+    "p-ratelimit": "^1.0.1",
+    "prettier": "^3.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "rimraf": "^5.0.1",
+    "ts-node": "10.9.1",
+    "typescript": "^5.2.2",
+    "uuid": "^9.0.1",
+    "vite": "^4.4.9"
+  },
+  "resolutions": {
+    "string-width": "4.2.3",
+    "wrap-ansi": "7.0.0",
+    "@sentry/browser": "7.64.0",
+    "@sentry/core": "7.64.0",
+    "@sentry/node": "7.64.0",
+    "@sentry/types": "7.64.0",
+    "@sentry/utils": "7.64.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "overrides": {
+    "typescript": "^5.1.6"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --cache --fix --max-warnings 0"
+    ],
+    "**/*.{json,md,html,scss,css}": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
+  "prettier": {
+    "printWidth": 120,
+    "arrowParens": "always",
+    "semi": true,
+    "tabWidth": 2,
+    "trailingComma": "all"
+  },
+  "build": {
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "appId": "com.replay.Replay",
+    "extends": null,
+    "productName": "Replay",
+    "extraMetadata": {
+      "name": "Replay",
+      "productName": "Replay"
+    },
+    "files": [
+      "!**/*.mk",
+      "!**/LICENSE",
+      "!**/*.c",
+      "!**/*.mm",
+      "!**/*.cpp",
+      "!**/*.hpp",
+      "!**/*.map",
+      "!**/*.h",
+      "!**/python3",
+      "!**/*.{a,iml,o,Makefile,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj,vscode,env.example,eslintrc.json,prettierrc,tgz}",
+      "!**/._*",
+      "!**/.github/**/*",
+      "!**/*.d.ts",
+      "!**/*.md",
+      "!**/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/.bin",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
+      "!*.sass",
+      "!.editorconfig",
+      "!appveyor-tools",
+      "!certificates",
+      "!custom-typings",
+      "!{modules}",
+      "./assets/**/*",
+      "node_modules/**/*.node",
+      "./electron/node_modules/**/*.node",
+      "electron/build/**/*.js",
+      "package.json",
+      "./ui/out/**/*.js",
+      "./ui/out/**/*.css",
+      "./ui/out/**/*.svg",
+      "./ui/out/**/*.woff",
+      "./ui/out/**/*.woff2",
+      "./ui/out/**/*.html",
+      "./ui/out/**/*.png",
+      "!./ui/out/**/*.map"
+    ],
+    "extraResources": [
+      "./assets/**/*",
+      {
+        "from": "node_modules/ffmpeg-static-fork/ffmpeg",
+        "to": "bin/ffmpeg"
+      },
+      {
+        "from": "node_modules/ffmpeg-static-fork/ffmpeg.exe",
+        "to": "bin/ffmpeg.exe"
+      },
+      {
+        "from": "node_modules/ffprobe-static-fork/ffprobe",
+        "to": "bin/ffprobe"
+      },
+      {
+        "from": "node_modules/ffprobe-static-fork/ffprobe.exe",
+        "to": "bin/ffprobe.exe"
+      }
+    ],
+    "win": {
+      "publish": {
+        "provider": "s3",
+        "bucket": "replay-updates-windows",
+        "endpoint": "https://149cda160fcd819be7a2c36788e4e415.r2.cloudflarestorage.com"
+      },
+      "icon": "./assets/icon.ico",
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "Replay-${version}.${ext}",
+      "signingHashAlgorithms": [],
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "artifactName": "Replay-${version}-installer.exe",
+      "installerIcon": "./assets/icon.ico",
+      "installerHeaderIcon": "./assets/icon.ico",
+      "deleteAppDataOnUninstall": true,
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "publish": {
+        "provider": "s3",
+        "bucket": "replay-updates-linux",
+        "endpoint": "https://149cda160fcd819be7a2c36788e4e415.r2.cloudflarestorage.com"
+      },
+      "target": [
+        "deb"
+      ],
+      "executableName": "replay",
+      "artifactName": "Replay-${version}.${ext}",
+      "category": "Development",
+      "maintainer": "hello@tryreplay.io",
+      "desktop": {
+        "Name": "Replay",
+        "Comment": "UVR",
+        "Categories": "Development",
+        "StartupNotify": true
+      }
+    },
+    "mac": {
+      "publish": {
+        "provider": "s3",
+        "bucket": "replay-updates-mac-${arch}",
+        "endpoint": "https://149cda160fcd819be7a2c36788e4e415.r2.cloudflarestorage.com"
+      },
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.developer-tools",
+      "icon": "assets/icon.icns",
+      "entitlements": "electron/entitlements.plist",
+      "entitlementsInherit": "electron/entitlements.plist",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "Replay needs your microphone to record your audio"
+      },
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": true,
+      "forceCodeSigning": false,
+      "binaries": [
+        "./node_modules/ffprobe-static-fork/ffprobe",
+        "./node_modules/ffmpeg-static-fork/ffmpeg"
+      ],
+      "notarize": false,
+      "artifactName": "Replay-${arch}-${version}.${ext}"
+    },
+    "dmg": {
+      "artifactName": "Replay-${arch}-${version}.dmg"
+    },
+    "appImage": {
+      "artifactName": "Replay.AppImage"
+    },
+    "afterSign": "./electron/hooks/notarize.js"
+  },
+  "dependencies": {
+    "react-h5-audio-player": "^3.8.6"
+  }
+}

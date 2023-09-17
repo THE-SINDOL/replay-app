@@ -1,0 +1,27 @@
+audioread==3.0.0
+diffq==0.2.4
+einops==0.6.1
+fairseq==0.12.2
+faiss-cpu==1.7.4
+fastapi==0.101.0
+ffmpeg-python==0.2.0
+julius==0.2.7
+librosa==0.9.1
+numpy==1.23.5
+omegaconf==2.0.6
+praat-parselmouth==0.4.3
+psutil==5.9.5
+pydantic==2.1.1
+pydub==0.25.1
+pyinstaller==5.13.0
+pytorch-lightning==2.0.6
+pyworld==0.3.4
+PyYAML==6.0.1
+scipy==1.11.1
+soundfile==0.12.1
+torch==2.0.1
+torchaudio==2.0.2
+torchcrepe==0.0.21
+uvicorn==0.23.2
+yt-dlp==2023.7.6
+pyrubberband==0.3.0; sys_platform == 'win32'

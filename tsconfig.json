@@ -1,0 +1,35 @@
+{
+  "references": [
+    { "path": "./ui" },
+    { "path": "./api" },
+    { "path": "./webapp" },
+    { "path": "./electron" },
+    { "path": "./shared" }
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "lib": ["ESNext", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext"
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "exclude": ["node_modules"],
+  "include": ["./electron/**/*.ts", "./electron/**/*.mts", "scripts/*.ts", "./ui/types/*.d.ts", "vite/client"]
+}

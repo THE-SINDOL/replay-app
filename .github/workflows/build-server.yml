@@ -1,0 +1,97 @@
+name: Build Server
+
+on:
+  workflow_call:
+    inputs:
+      runner:
+        required: true
+        type: string
+      platform:
+        required: true
+        type: string
+      arch:
+        required: true
+        type: string
+      npm_config_platform:
+        required: true
+        type: string
+      dev:
+        required: false
+        type: boolean
+        default: false
+      new_release_version:
+        required: false
+        type: string
+        default: ""
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NODE_ENV: production
+  APP_ENV: production
+  APPLE_ID: ${{ secrets.APPLE_ID }}
+  APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+  APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  CSC_LINK: ${{ secrets.CSC_LINK }}
+  CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  build-server:
+    runs-on: ${{ inputs.runner }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Mac - Install python3.10
+        if: inputs.platform == 'mac'
+        run: |
+          brew install python@3.10
+          mkdir bin || true
+          ln -s $(which python3.10) bin/python
+          ln -s $(which pip3.10) bin/pip
+          echo `pwd`/bin >> $GITHUB_PATH
+        working-directory: python
+
+      - name: Print path
+        if: inputs.platform == 'mac'
+        run: |
+          echo "Path: $PATH"
+          echo "Github Path: $GITHUB_PATH"
+
+      - name: Install apple cert
+        if: inputs.platform == 'mac'
+        run: |
+          curl --http1.1 --retry 3 --retry-all-errors -f -o AppleIncRootCertificate.cer https://www.apple.com/appleca/AppleIncRootCertificate.cer && security import AppleIncRootCertificate.cer
+          curl --http1.1 --retry 3 --retry-all-errors -f -o AppleWWDRCA.cer https://developer.apple.com/certificationauthority/AppleWWDRCA.cer && security import AppleWWDRCA.cer
+          curl --http1.1 --retry 3 --retry-all-errors -f -o AppleWWDRCAG2.cer https://www.apple.com/certificateauthority/AppleWWDRCAG2.cer  && security import AppleWWDRCAG2.cer
+          curl --http1.1 --retry 3 --retry-all-errors -f -o AppleWWDRCAG3.cer https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer  && security import AppleWWDRCAG3.cer
+          curl --http1.1 --retry 3 --retry-all-errors -f -o AppleWWDRCAG4.cer https://www.apple.com/certificateauthority/AppleWWDRCAG4.cer  && security import AppleWWDRCAG4.cer
+          curl --http1.1 --retry 3 --retry-all-errors -f -o AppleWWDRCAG5.cer https://www.apple.com/certificateauthority/AppleWWDRCAG5.cer  && security import AppleWWDRCAG5.cer
+          curl --http1.1 --retry 3 --retry-all-errors -f -o AppleWWDRCAG6.cer https://www.apple.com/certificateauthority/AppleWWDRCAG6.cer  && security import AppleWWDRCAG6.cer
+          curl --http1.1 --retry 3 --retry-all-errors -f -o DevAuthCA.cer https://www.apple.com/certificateauthority/DevAuthCA.cer  && security import DevAuthCA.cer
+          curl --http1.1 --retry 3 --retry-all-errors -f -o DeveloperIDCA.cer https://www.apple.com/certificateauthority/DeveloperIDCA.cer  && security import DeveloperIDCA.cer
+
+      - name: Install python3.10 (windows / linux)
+        if: inputs.platform != 'mac'
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+      - name: Build python server
+        run: ./build.sh
+        shell: bash
+        working-directory: python
+        env:
+          NEW_RELEASE_VERSION: ${{ inputs.new_release_version || '' }}
+
+      - name: Deploy python server
+        run: ./deploy.sh
+        shell: bash
+        working-directory: python
+        env:
+          NEW_RELEASE_VERSION: ${{ inputs.new_release_version || '' }}

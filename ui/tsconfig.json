@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "types": ["vite/client"],
+  "include": ["../electron/**/*.ts", "**/*.ts", "**/*.tsx", "vite/client"],
+  "compilerOptions": {
+    "lib": ["dom", "ESNext"],
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "incremental": true
+  }
+}
